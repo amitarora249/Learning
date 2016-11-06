@@ -83,6 +83,7 @@ public class TestUI {
 				try{
 					int destId = Integer.parseInt(destTxt.getText());
 					String message  = sendMessageText.getText();
+					sendMessageText.setText("");
 					receivedMessageArea.append("Me : "+message+"\n\n");
 					client.sendMessage(destId, message);
 					
