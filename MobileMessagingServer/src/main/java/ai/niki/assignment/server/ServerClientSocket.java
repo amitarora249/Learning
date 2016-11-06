@@ -44,7 +44,6 @@ public class ServerClientSocket implements Runnable {
 			}
 		} catch (Exception e) {
 			closeConnection();
-			e.printStackTrace();
 		}
 	}
 
@@ -91,8 +90,6 @@ public class ServerClientSocket implements Runnable {
 				CommonCache.addNewMessage(message);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 			closeConnection();
 		}
 	}
@@ -106,7 +103,7 @@ public class ServerClientSocket implements Runnable {
 			for (Message msg : userQueue) {
 				if (msg.getData().equals(message.getData()) && msg.getDestinationId() == message.getDestinationId()) {
 					long previousArrivalTime = msg.getArraivalTime();
-					long currentArrivalTime = msg.getArraivalTime();
+					long currentArrivalTime = message.getArraivalTime();
 					if (((currentArrivalTime - previousArrivalTime) / 1000) < 5) {
 						return true;
 					} else {
@@ -131,8 +128,7 @@ public class ServerClientSocket implements Runnable {
 						BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(destinationSocket.getOutputStream());
 						bufferedOutputStream.write(message.toByteArray());
 						bufferedOutputStream.flush();
-						Thread.sleep(2000);
-					} catch (IOException | InterruptedException e) {
+					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
