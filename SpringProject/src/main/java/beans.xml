@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    					http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+						http://www.springframework.org/schema/aop
+						http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+ 
+	<aop:config>
+		<aop:aspect id="loggerAspect" ref="logginAspect">
+			<aop:pointcut id="loggingOperation"
+				expression="execution(* org.practice.payment.impl.CreditCardPayment.*(..))" />
+
+			<aop:before pointcut-ref="loggingOperation" method="logBefore" />
+			<aop:after pointcut-ref="loggingOperation" method="logAfter" />
+			<aop:after-returning pointcut-ref="loggingOperation"
+				returning="result" method="logAfterReturning" />
+			<aop:after-throwing pointcut-ref="loggingOperation"
+				throwing="e" method="logAfterThrowing" />
+			<aop:around pointcut-ref="loggingOperation" method="logAround" />
+		</aop:aspect>
+
+	</aop:config> 
+
+	 <bean id="logginAspect " class="org.practice.spring.aspects.LoggingAspect" /> 
+
+	<bean id="creditPayment" class="org.practice.payment.impl.CreditCardPayment"/>
+	<bean id="codPayment" class="org.practice.payment.impl.CashOnDeliveryPayment"/>
+	<!-- <bean id="address" class="org.practice.beans.Address"> <constructor-arg 
+		value="Thane" /> <constructor-arg value="Maharashtra" /> <constructor-arg 
+		value="India" /> <constructor-arg value="400606" /> </bean> <bean id="user" 
+		class="org.practice.beans.User" autowire="byType"> <property name="firstName" 
+		value="Pooja"/> <property name="lastName" value="Dubey"/> <property name="emailId" 
+		value="poojadubey39@gmail.com"/> <property name="mobileNo" value="9004283364"/> 
+		<constructor-arg value="Pooja" /> <constructor-arg value="Dubey" /> <constructor-arg 
+		ref="address"/> <constructor-arg value="poojadubey39@gmail.com" /> <constructor-arg 
+		value="9004283364" /> </bean> -->
+
+</beans>
