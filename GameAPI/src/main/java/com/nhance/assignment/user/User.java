@@ -1,15 +1,16 @@
-package com.nhance.assignment.user;
+package com.nhance.assignment.game;
 
 import com.nhance.assignment.constants.Constants.UserSkillLevel;
-import com.nhance.assignment.datastore.Game;
+import com.nhance.assignment.datastore.GameDetails;
 
 public class User {
 
 	private int userId;
-	private Game currentGame;
+	private GameDetails currentGame;
 	private UserSkillLevel currentSkillLevel;
 	private long score;
-	private int progressPercentage;
+	private double progressPercentage;
+	private int gamesPlayed;
 
 	public int getUserId() {
 		return userId;
@@ -19,11 +20,11 @@ public class User {
 		this.userId = userId;
 	}
 
-	public Game getCurrentGame() {
+	public GameDetails getCurrentGame() {
 		return currentGame;
 	}
 
-	public void setCurrentLevel(Game currentGame) {
+	public void setCurrentGame(GameDetails currentGame) {
 		this.currentGame = currentGame;
 	}
 
@@ -42,12 +43,20 @@ public class User {
 	public void setScore(long score) {
 		this.score = score;
 	}
+	
+	public int getGamesPlayed() {
+		return gamesPlayed;
+	}
 
-	public int getProgressPercentage() {
+	public void incrementGamesPlayed() {
+		this.gamesPlayed++;
+	}
+
+	public double getProgressPercentage() {
 		return progressPercentage;
 	}
 
-	public void setProgressPercentage(int progressPercentage) {
+	public void setProgressPercentage(double progressPercentage) {
 		this.progressPercentage = progressPercentage;
 	}
 
@@ -55,7 +64,8 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", currentGame=" + currentGame
 				+ ", currentSkillLevel=" + currentSkillLevel + ", score="
-				+ score + ", progressPercentage=" + progressPercentage + "]";
+				+ score + ", progressPercentage=" + progressPercentage
+				+ ", gamesPlayed=" + gamesPlayed + "]";
 	}
 
 }
